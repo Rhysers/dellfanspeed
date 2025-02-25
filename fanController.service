@@ -1,0 +1,26 @@
+[Unit]
+Description=Dell Fan Controller
+After=multi-user.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/fanController/fanController.sh
+Restart=always
+User=root
+Group=root
+StandardOutput=append:/var/log/fanSpeed.log
+StandardError=append:/var/log/fanSpeed.log
+SyslogIdentifier=fanController
+
+#Shutdown Info
+KillSignal=SIGTERM
+TimeoutStopSec=20
+RestartKillSignal=SIGTERM
+
+#Watchdog Settings
+WatchdogSec=30s
+NotifyAccess=main
+
+[Install]
+WantedBy=multi-user.target
